@@ -25,26 +25,6 @@
     (aliveW ?wumpus - wumpus);wumpus has not been shot
 )
 
-
-(:action move
-    :parameters (?agent - agent ?tileA - tile
-                 ?wumpus - wumpus ?tileW -tile
-                 ?pit - pit ?tileP -tile
-                 ?from-tile - tile ?to-tile - tile)
-    :precondition (and 
-                    (at ?agent ?from-tile)
-                    (atW ?wumpus ?tileW)
-                    (atP ?pit ?tileP)
-                    (or(not(atW ?wumpus ?to-tile))(not(aliveW ?wumpus)))
-                    (not(atP ?pit ?to-tile))
-                    )
-    :effect 
-        (and (at ?agent ?to-tile)
-                (not (at ?agent ?from-tile))
-        )
-
-)
-
 (:action move-left
     :parameters (?agent - agent ?rowA - y ?from-col - x ;gets agent cordinates
                  ?wumpus - wumpus ?rowW - y ?colW - x ;gets wumpus coridnates
@@ -180,7 +160,7 @@
     :precondition (and 
                     (at ?agent ?from-row ?colA)
                     (atW ?wumpus ?rowW ?colW)
-                    (one-greater-than  ?to-row ?from-row)
+                    (one-greater-than  ?from-row ?to-row )
                     (atW ?wumpus ?to-row ?colA)
                     (canShoot ?agent))
     :effect (and 
@@ -199,7 +179,7 @@
     :precondition (and 
                     (at ?agent ?from-row ?colA)
                     (atW ?wumpus ?rowW ?colW)
-                    (one-greater-than  ?from-row ?to-row)
+                    (one-greater-than   ?to-row ?from-row)
                     (atW ?wumpus ?to-row ?colA)
                     (canShoot ?agent)
                     )

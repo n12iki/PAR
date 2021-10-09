@@ -12,7 +12,7 @@
     (at character oneY one)
     (atW beast twoY three)
     (atP hole oneY two)
-    (atG money oneY three)
+    (atG money oneY one)
     (canShoot character)
     (aliveW beast)
 
