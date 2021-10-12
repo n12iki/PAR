@@ -19,12 +19,23 @@
     (atG ?gold - gold ?row - y ?col - x) ;place gold
     (canShoot ?agent - agent)  ;character can shoot
     (aliveW ?wumpus - wumpus);wumpus has not been shot
+    (hasGold ?agent - agent)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Moving from one coordinate to another, pretty much the same between each direction
 ;as a result only the first shoot move will be commented
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(:action pickUpGold
+    :parameters (?agent - agent ?rowA - y ?colA - x
+                 ?gold - gold  ?rowG - y ?colG - x
+                )
+    :precondition (and 
+                    (at ?agent ?rowA ?colA)
+                    (atG ?gold ?rowA ?colA))
+    :effect (hasGold ?agent)
+)
 
 (:action move-left
     :parameters (?agent - agent ?rowA - y ?from-col - x 
@@ -36,6 +47,8 @@
                     (at ?agent ?rowA ?from-col) ;agent at those coordinates
                     (atP ?pit ?rowP ?colP)      ;pit at those correct coordinates
                     (atW ?wumpus ?rowW ?colW)   ;wumpus at those coordinates
+                    (not(atW ?wumpus ?rowA ?from-col))
+                    (not(atP ?pit ?rowA ?from-col))
                     (one-greater-than ?from-col ?to-col)  ;that the coordinate to move is only one higher
                     (or(not(atW ?wumpus ?rowA ?to-col))(not(aliveW ?wumpus))) ;that there is not an alive wumpus in the room, if there is an alive wumpus cannot enter
                     (not(atP ?pit ?rowA ?to-col)) ;that there is not a pit in the room, if there is a pit cannot enter
@@ -57,6 +70,8 @@
                     (at ?agent ?rowA ?from-col)
                     (atP ?pit ?rowP ?colP)
                     (atW ?wumpus ?rowW ?colW)
+                    (not(atW ?wumpus ?rowA ?from-col))
+                    (not(atP ?pit ?rowA ?from-col))
                     (one-greater-than ?to-col ?from-col)
                     (or(not(atW ?wumpus ?rowA ?to-col))(not(aliveW ?wumpus)))
                     (not(atP ?pit ?rowA ?to-col))
@@ -78,6 +93,8 @@
                     (at ?agent ?from-row ?colA)
                     (atP ?pit ?rowP ?colP)
                     (atW ?wumpus ?rowW ?colW)
+                    (not(atW ?wumpus ?from-row ?colA))
+                    (not(atP ?pit ?from-row ?colA))
                     (one-greater-than ?to-row ?from-row )
                     (or(not(atW ?wumpus ?to-row ?colA))(not(aliveW ?wumpus)))
                     (not(atP ?pit ?to-row ?colA))
@@ -100,6 +117,8 @@
                     (at ?agent ?from-row ?colA)
                     (atP ?pit ?rowP ?colP)
                     (atW ?wumpus ?rowW ?colW)
+                    (not(atW ?pit ?from-row ?colA))
+                    (not(atP ?wumpus ?from-row ?colA))
                     (one-greater-than  ?from-row ?to-row)
                     (or(not(atW ?wumpus ?to-row ?colA))(not(aliveW ?wumpus)))
                     (not(atP ?pit ?to-row ?colA))

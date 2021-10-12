@@ -12,7 +12,7 @@
     (at character oneY one)
     (atW beast twoY three)
     (atP hole oneY two)
-    (atG money oneY one)
+    (atG money oneY three)
     (canShoot character)
     (aliveW beast)
 
@@ -21,5 +21,8 @@
     (one-greater-than twoY oneY)
 )
 
-(:goal (at character oneY three))
+(:goal (and
+        (at character oneY one)
+        (hasgold character)
+        ))
 )

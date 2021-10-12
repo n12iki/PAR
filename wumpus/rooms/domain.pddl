@@ -24,6 +24,8 @@
     :precondition (and
                     (adjecent ?room1 ?room2)
                     (hasChar ?room1)
+                    (not(hasWumpus ?room1))
+                    (not(hasPit ?room1))
                     (not(hasWumpus ?room2))
                     (not(hasPit ?room2))
                     )
