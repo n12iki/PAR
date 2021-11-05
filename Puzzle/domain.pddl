@@ -1,3 +1,4 @@
+;Written by Nikita Belooussov
 (define (domain puzzle)
 
 ;remove requirements that are not needed

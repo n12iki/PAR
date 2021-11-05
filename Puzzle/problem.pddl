@@ -1,3 +1,4 @@
+;Written by Nikita Belooussov
 (define (problem puzzle_game) (:domain puzzle)
 (:objects 
     t11 t12 t13 t14 t21 t22 t23 t24 t31 t32 t33 t34 t41 t42 t43 t44 - place; tiles are t and then row and col
